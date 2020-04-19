@@ -285,11 +285,11 @@ namespace ContactsApp
                 contact.LastName = lastName.Text;
                 contact.BirthDate = DateTime.Parse(birthDate.Text);
                 contact.PhoneNumber = phone.Text;
-                contact.Address.street = street.Text;
-                contact.Address.houseNumber = houseNum.Text;
-                contact.Address.zipCode = int.Parse(zipCode.Text);
-                contact.Address.city = city.Text;
-                contact.Address.country = country.Text;
+                contact.Address.Street = street.Text;
+                contact.Address.HouseNumber = houseNum.Text;
+                contact.Address.ZipCode = int.Parse(zipCode.Text);
+                contact.Address.City = city.Text;
+                contact.Address.Country = country.Text;
 
                 ContactsInformation.AddContact(contact);
                 mainWindow.UpdateContactsList();
@@ -303,11 +303,11 @@ namespace ContactsApp
             lastName.Text = contact.LastName;
             birthDate.Text = contact.BirthDate.ToString("yyyy/MM/dd");
             phone.Text = contact.PhoneNumber;
-            street.Text = contact.Address.street;
-            houseNum.Text = contact.Address.houseNumber;
-            zipCode.Text = contact.Address.zipCode.ToString();
-            city.Text = contact.Address.city;
-            country.Text = contact.Address.country;
+            street.Text = contact.Address.Street;
+            houseNum.Text = contact.Address.HouseNumber;
+            zipCode.Text = contact.Address.ZipCode.ToString();
+            city.Text = contact.Address.City;
+            country.Text = contact.Address.Country;
         }
 
         private void InitializeBoxes()

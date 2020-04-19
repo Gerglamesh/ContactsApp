@@ -9,10 +9,10 @@ namespace ContactsApp
     [Serializable]
     public class Address
     {
-        public string street { get; set; }
-        public string houseNumber { get; set; }
-        public int zipCode { get; set; }
-        public string city { get; set; }
-        public string country { get; set; }
+        public string Street { get; set; }
+        public string HouseNumber { get; set; }
+        public int ZipCode { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
     }
 }

@@ -14,7 +14,6 @@ namespace ContactsApp
     {
         private static Dictionary<string, Person> contactsDictionary = new Dictionary<string, Person>();
         
-
         public static Dictionary<string, Person> GetContacts() => contactsDictionary;
 
         /// <summary>
@@ -31,7 +30,7 @@ namespace ContactsApp
             else
             {
                 return null;
-            }            
+            }
         }
 
         /// <summary>
@@ -46,12 +45,12 @@ namespace ContactsApp
                 Person contact = GetContact(name);
                 string result;
                 result = $"Name: {contact.FirstName} {contact.LastName}\n";
-                result += $"Birthd date: {contact.BirthDate.ToString("yyyy/MM/dd")}\n";
+                result += $"Birth date: {contact.BirthDate:yyyy/MM/dd}\n";
                 result += $"Phone: {contact.PhoneNumber}\n\n";
                 result += "Adress:\n";
-                result += $"{contact.Address.street} {contact.Address.houseNumber}\n";
-                result += $"{contact.Address.zipCode} {contact.Address.city}\n";
-                result += contact.Address.country;
+                result += $"{contact.Address.Street} {contact.Address.HouseNumber}\n";
+                result += $"{contact.Address.ZipCode} {contact.Address.City}\n";
+                result += contact.Address.Country;
 
                 return result;
             }
