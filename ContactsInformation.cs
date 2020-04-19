@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
 
 namespace ContactsApp
 {
     public static class ContactsInformation
     {
-        private static Dictionary<string, Person> contactsDictionary = new Dictionary<string, Person>();
-        
-        public static Dictionary<string, Person> GetContacts() => contactsDictionary;
+        public static Dictionary<string, Person> ContactsDictionary { get; set; } = new Dictionary<string, Person>();
 
         /// <summary>
         /// Returns specific Person based on their name. Returns null of Person not found.
@@ -23,9 +15,9 @@ namespace ContactsApp
         /// <returns></returns>
         public static Person GetContact(string name)
         {
-            if (contactsDictionary.ContainsKey(name))
+            if (ContactsDictionary.ContainsKey(name))
             {
-                return contactsDictionary[name];
+                return ContactsDictionary[name];
             }
             else
             {
@@ -65,7 +57,7 @@ namespace ContactsApp
         public static void AddContact(Person person)
         {
             //Check that contact does not allready exist
-            if (contactsDictionary.ContainsKey($"{person.FirstName} {person.LastName}"))
+            if (ContactsDictionary.ContainsKey($"{person.FirstName} {person.LastName}"))
             {
                 MessageBoxResult result = MessageBox.Show($"Contact called {person.FirstName} {person.LastName} allready exists!\nDo you wish to overwrite it?", 
                     "Contact Exists!", MessageBoxButton.YesNo);
@@ -76,19 +68,19 @@ namespace ContactsApp
                 }            
             }
 
-            contactsDictionary.Add($"{person.FirstName} {person.LastName}", person);
+            ContactsDictionary.Add($"{person.FirstName} {person.LastName}", person);
             MessageBox.Show($"Contact {person.FirstName} {person.LastName} added successfully.");
         }
 
         public static void RemoveContact(string name, bool showSuccessMessage = true)
         {
-            if (!contactsDictionary.ContainsKey(name))
+            if (!ContactsDictionary.ContainsKey(name))
             {
                 MessageBox.Show(name + " does not exist.");                
             }
             else
             {
-                if (contactsDictionary.Remove(name))
+                if (ContactsDictionary.Remove(name))
                 {
                     if (showSuccessMessage)
                     {

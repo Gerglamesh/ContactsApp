@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ContactsApp
@@ -40,8 +37,10 @@ namespace ContactsApp
         /// <summary>
         /// Load this sessions contactsDictionary from file.
         /// </summary>
-        public static bool Load(Dictionary<string, Person> contactsDictionary)
+        public static Dictionary<string, Person> Load()
         {
+            Dictionary<string, Person> contacts = new Dictionary<string, Person>();
+
             //Check if we have previously saved information
             if (File.Exists(DATA_FILENAME))
             {
@@ -51,19 +50,22 @@ namespace ContactsApp
                     FileStream readerFileStream = new FileStream(DATA_FILENAME, FileMode.Open, FileAccess.Read);
 
                     //Reconstruct information of our contacts from file.
-                    contactsDictionary = (Dictionary<String, Person>)formatter.Deserialize(readerFileStream);
+                    contacts = (Dictionary<String, Person>)formatter.Deserialize(readerFileStream);
 
                     //Close the readerFileStream when we are done
                     readerFileStream.Close();
-
-                    return true;
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show($"There was a problem with retrieving contacts information! \n\n{e}");
                 }
             }
-            return false;
+            else
+            {
+                MessageBox.Show($"No contacts file with correct name exists!");
+            }
+
+            return contacts;
         }
     }
 }

@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
+
 
 namespace ContactsApp
 {
@@ -39,7 +29,7 @@ namespace ContactsApp
             InitializeComponent();
             Start();
 
-            ContactsIO.Load(ContactsInformation.GetContacts()); //Load contacts from file
+            ContactsInformation.ContactsDictionary = ContactsIO.Load();
             UpdateContactsList();
         }
 
@@ -179,7 +169,7 @@ namespace ContactsApp
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
-            ContactsIO.Save(ContactsInformation.GetContacts());
+            ContactsIO.Save(ContactsInformation.ContactsDictionary);
             Environment.Exit(0);
         }
 
@@ -213,7 +203,7 @@ namespace ContactsApp
         public void UpdateContactsList()
         {
             contacts.Items.Clear();
-            foreach (var item in ContactsInformation.GetContacts())
+            foreach (var item in ContactsInformation.ContactsDictionary)
             {
                 contacts.Items.Add(item.Key);
             }
