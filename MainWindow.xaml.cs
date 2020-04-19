@@ -21,16 +21,16 @@ namespace ContactsApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Controls used
-        Label mainHeaderLbl;
-        Label contactListHeaderLbl;
-        Label personInfoHeaderLbl;
-        public ListBox contactsListBox;
-        RichTextBox personInfoRTxtBox;
-        public Button addBtn;
-        public Button editBtn;
-        Button removeBtn;
-        Button exitBtn;   
+        Label mainHeader;
+        Label contactListHeader;
+        Label personInfoHeader;
+        RichTextBox personInfo;
+        Button remove;
+        Button exit;
+
+        public ListBox contacts;
+        public Button add;
+        public Button edit;
 
         public MainWindow()
         {
@@ -39,14 +39,13 @@ namespace ContactsApp
             InitializeComponent();
             Start();
 
-            //Load contacts and update contact list
             ContactsInformation.Load(); //Load contacts from file
-            UpdateContactList();
+            UpdateContactsList();
         }
 
         public void Start()
         {
-            Grid grid = (Grid)Content;      //Sets "grid" to reference the mainwindow content
+            Grid grid = (Grid)Content;
 
             //Define grid-layout
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
@@ -61,48 +60,51 @@ namespace ContactsApp
             btnGrid.ColumnDefinitions.Add(new ColumnDefinition());
             btnGrid.ColumnDefinitions.Add(new ColumnDefinition());
             btnGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            AddToCell(btnGrid, grid, 0, 3);     //Grid for buttons goes where we want our buttons in main grid
+            AddToCell(btnGrid, grid, 0, 3);
+
 
             //Set labels
-            mainHeaderLbl = new Label()
+            mainHeader = new Label()
             {
                 Content = "Contacts",
                 FontSize = 16,
                 HorizontalContentAlignment = HorizontalAlignment.Center,
                 Margin = new Thickness(5)
             };
-            AddToCell(mainHeaderLbl, grid, 0, 0);
-            Grid.SetColumnSpan(mainHeaderLbl, 2);
+            AddToCell(mainHeader, grid, 0, 0);
+            Grid.SetColumnSpan(mainHeader, 2);
 
-            contactListHeaderLbl = new Label()
+            contactListHeader = new Label()
             {
                 Content = "Entries",
                 HorizontalContentAlignment = HorizontalAlignment.Left,
                 Margin = new Thickness(5)
             };
-            AddToCell(contactListHeaderLbl, grid, 0, 1);
+            AddToCell(contactListHeader, grid, 0, 1);
 
-            personInfoHeaderLbl = new Label()
+            personInfoHeader = new Label()
             {
                 Content = "Info",
                 HorizontalContentAlignment = HorizontalAlignment.Left,
                 Margin = new Thickness(5)
             };
-            AddToCell(personInfoHeaderLbl, grid, 1, 1);
+            AddToCell(personInfoHeader, grid, 1, 1);
+
 
             //Set ListBox
-            contactsListBox = new ListBox()
+            contacts = new ListBox()
             {
                 MinHeight = 200,
                 MinWidth = 300,
                 HorizontalContentAlignment = HorizontalAlignment.Left,
                 Margin = new Thickness(0)       
             };            
-            AddToCell(contactsListBox, grid, 0, 2);
-            contactsListBox.SelectionChanged += ContactsListBox_SelectionChanged;
+            AddToCell(contacts, grid, 0, 2);
+            contacts.SelectionChanged += ContactsListBox_SelectionChanged;
+
 
             //Set RichTextBox
-            personInfoRTxtBox = new RichTextBox()
+            personInfo = new RichTextBox()
             {
                 MinHeight = 200,
                 MinWidth = 300,
@@ -110,11 +112,12 @@ namespace ContactsApp
                 Margin = new Thickness(2),
                 IsEnabled = false,
             };
-            personInfoRTxtBox.SetValue(Paragraph.LineHeightProperty, 3.0); //Set line height tomake text look good
-            AddToCell(personInfoRTxtBox, grid, 1, 2);
+            personInfo.SetValue(Paragraph.LineHeightProperty, 3.0); //Set line height tomake text look good
+            AddToCell(personInfo, grid, 1, 2);
+
 
             //Set buttons
-            addBtn = new Button()
+            add = new Button()
             {
                 Content = "Add",
                 HorizontalContentAlignment = HorizontalAlignment.Center,
@@ -124,10 +127,10 @@ namespace ContactsApp
                 Padding = new Thickness(5),
                 Tag = "addbtn"
             };
-            AddToCell(addBtn, btnGrid, 0, 0);
-            addBtn.Click += AddOrEditBtn_Click;
+            AddToCell(add, btnGrid, 0, 0);
+            add.Click += AddOrEditBtn_Click;
 
-            editBtn = new Button()
+            edit = new Button()
             {
                 Content = "Edit",
                 HorizontalContentAlignment = HorizontalAlignment.Center,
@@ -137,10 +140,10 @@ namespace ContactsApp
                 Padding = new Thickness(5),
                 Tag = "editbtn"
             };
-            AddToCell(editBtn, btnGrid, 1, 0);
-            editBtn.Click += AddOrEditBtn_Click;
+            AddToCell(edit, btnGrid, 1, 0);
+            edit.Click += AddOrEditBtn_Click;
 
-            removeBtn = new Button()
+            remove = new Button()
             {
                 Content = "Remove",
                 HorizontalContentAlignment = HorizontalAlignment.Center,
@@ -149,10 +152,10 @@ namespace ContactsApp
                 Margin = new Thickness(2),
                 Padding = new Thickness(5)
             };
-            AddToCell(removeBtn, btnGrid, 2, 0);
-            removeBtn.Click += RemoveBtn_Click;
+            AddToCell(remove, btnGrid, 2, 0);
+            remove.Click += RemoveBtn_Click;
 
-            exitBtn = new Button()
+            exit = new Button()
             {
                 Content = "Exit",
                 HorizontalContentAlignment = HorizontalAlignment.Center,
@@ -161,16 +164,16 @@ namespace ContactsApp
                 Margin = new Thickness(2),
                 Padding = new Thickness(5)
             };
-            AddToCell(exitBtn, grid, 2, 3);
-            exitBtn.Click += ExitBtn_Click;
+            AddToCell(exit, grid, 2, 3);
+            exit.Click += ExitBtn_Click;
         }
 
         private void ContactsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            personInfoRTxtBox.Document.Blocks.Clear();
-            if (contactsListBox.SelectedItem != null)
+            personInfo.Document.Blocks.Clear();
+            if (contacts.SelectedItem != null)
             {
-                personInfoRTxtBox.AppendText(ContactsInformation.GetContactInfo(contactsListBox.SelectedItem.ToString()));
+                personInfo.AppendText(ContactsInformation.GetContactInfo(contacts.SelectedItem.ToString()));
             }            
         }
 
@@ -182,37 +185,37 @@ namespace ContactsApp
 
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
-            ContactsInformation.RemoveContact(contactsListBox.SelectedItem.ToString());
-            UpdateContactList();
+            ContactsInformation.RemoveContact(contacts.SelectedItem.ToString());
+            UpdateContactsList();
         }
 
         private void AddOrEditBtn_Click(object sender, RoutedEventArgs e)
         {            
-            if (sender == addBtn)
+            if (sender == add)
             {
                 AddContactWindow contactWindow = new AddContactWindow(this);
                 contactWindow.Show();
-                addBtn.IsEnabled = false;
-                editBtn.IsEnabled = false;
+                add.IsEnabled = false;
+                edit.IsEnabled = false;
             }
-            else if (sender == editBtn)
+            else if (sender == edit)
             {
-                if (contactsListBox.SelectedItem != null)
+                if (contacts.SelectedItem != null)
                 {
-                    AddContactWindow contactWindow = new AddContactWindow(this, ContactsInformation.GetContact(contactsListBox.SelectedItem.ToString()));
+                    AddContactWindow contactWindow = new AddContactWindow(this, ContactsInformation.GetContact(contacts.SelectedItem.ToString()));
                     contactWindow.Show();
-                    addBtn.IsEnabled = false;
-                    editBtn.IsEnabled = false;
+                    add.IsEnabled = false;
+                    edit.IsEnabled = false;
                 }                
             }            
         }
 
-        public void UpdateContactList()
+        public void UpdateContactsList()
         {
-            contactsListBox.Items.Clear();
+            contacts.Items.Clear();
             foreach (var item in ContactsInformation.GetContacts())
             {
-                contactsListBox.Items.Add(item.Key);
+                contacts.Items.Add(item.Key);
             }
         }
 

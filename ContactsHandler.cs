@@ -24,10 +24,7 @@ namespace ContactsApp
             address = new AddressSerializable();
         }
 
-        public override string ToString()
-        {
-            return $"{firstName} {lastName}";
-        }
+        public override string ToString() => $"{firstName} {lastName}";
     }
 
     [Serializable]
@@ -38,11 +35,6 @@ namespace ContactsApp
         public int zipCode { get; set; } = 0;
         public string city { get; set; } = "";
         public string country { get; set; } = "";
-
-        public AddressSerializable()
-        {
-
-        }
     }
 
     public static class ContactsInformation
@@ -52,10 +44,7 @@ namespace ContactsApp
 
         private const string DATA_FILENAME = "ContactsInformation.dat";
 
-        public static Dictionary<string, Contact> GetContacts()
-        {
-            return contactsDictionary;
-        }
+        public static Dictionary<string, Contact> GetContacts() => contactsDictionary;
 
         public static Contact GetContact(string name)
         {

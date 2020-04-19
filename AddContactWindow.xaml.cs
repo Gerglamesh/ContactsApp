@@ -22,24 +22,24 @@ namespace ContactsApp
     {
         MainWindow mainWindow;
 
-        public TextBox firstNameTxtBox;
-        public TextBox lastNameTxtBox;
-        public TextBox birthDateTxtBox;
-        public TextBox phoneTxtBox;
+        public TextBox firstName;
+        public TextBox lastName;
+        public TextBox birthDate;
+        public TextBox phone;
 
-        public TextBox streetTxtBox;
-        public TextBox houseNumTxtBox; //Really necessary?
-        public TextBox zipCodeTxtBox;
-        public TextBox cityTxtBox;
-        public TextBox countryTxtBox;
+        public TextBox street;
+        public TextBox houseNum;
+        public TextBox zipCode;
+        public TextBox city;
+        public TextBox country;
 
         Grid mainGrid;
         Grid adressGrid;
 
         string contactToEdit;
 
-        Button addBtn;
-        Button cancelBtn;
+        Button add;
+        Button cancel;
 
         public AddContactWindow(MainWindow mainWindow, Contact contact = null)
         {
@@ -73,6 +73,7 @@ namespace ContactsApp
             mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
+
             //Define controls for main grid
             Label header = new Label()
             {
@@ -84,7 +85,7 @@ namespace ContactsApp
             Grid.SetColumnSpan(header, 4);
 
             Label fName = CreateLabel("First Name", "Right");
-            firstNameTxtBox = new TextBox()
+            firstName = new TextBox()
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalContentAlignment = VerticalAlignment.Center,
@@ -94,7 +95,7 @@ namespace ContactsApp
             };
 
             Label lName = CreateLabel("Last Name", "Right");
-            lastNameTxtBox = new TextBox()
+            lastName = new TextBox()
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalContentAlignment = VerticalAlignment.Center,
@@ -104,7 +105,7 @@ namespace ContactsApp
             };
 
             Label birthDate = CreateLabel("Birthday", "Right");
-            birthDateTxtBox = new TextBox()
+            this.birthDate = new TextBox()
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalContentAlignment = VerticalAlignment.Center,
@@ -112,10 +113,10 @@ namespace ContactsApp
                 MinWidth = 100,
                 MaxWidth = 200
             };
-            birthDateTxtBox.LostFocus += BirthDateValidityCheck;
+            this.birthDate.LostFocus += BirthDateValidityCheck;
 
             Label phoneNum = CreateLabel("Phone", "Right");
-            phoneTxtBox = new TextBox()
+            phone = new TextBox()
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalContentAlignment = VerticalAlignment.Center,
@@ -123,17 +124,18 @@ namespace ContactsApp
                 MinWidth = 100,
                 MaxWidth = 200
             };
+
 
             //Add controls to main grid
             AddToCell(header, mainGrid, 0, 0);
             AddToCell(fName, mainGrid, 0, 1);
-            AddToCell(firstNameTxtBox, mainGrid, 1, 1);
+            AddToCell(firstName, mainGrid, 1, 1);
             AddToCell(lName, mainGrid, 0, 2);
-            AddToCell(lastNameTxtBox, mainGrid, 1, 2);
+            AddToCell(lastName, mainGrid, 1, 2);
             AddToCell(birthDate, mainGrid, 0, 3);
-            AddToCell(birthDateTxtBox, mainGrid, 1, 3);
+            AddToCell(this.birthDate, mainGrid, 1, 3);
             AddToCell(phoneNum, mainGrid, 0, 4);
-            AddToCell(phoneTxtBox, mainGrid, 1, 4);
+            AddToCell(phone, mainGrid, 1, 4);
 
 
             //Add address section
@@ -148,6 +150,7 @@ namespace ContactsApp
             adressGrid = new Grid();
             adressGroupBox.Content = adressGrid;
 
+
             //Define adress grid
             adressGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             adressGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
@@ -158,13 +161,15 @@ namespace ContactsApp
             adressGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             adressGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
+
             //Add address group to main grid and set span
             AddToCell(adressGroupBox, mainGrid, 0, 5);
             Grid.SetColumnSpan(adressGroupBox, 4);
 
+
             //Define controls for adress group
             Label streetName = CreateLabel("Street", "Right");
-            streetTxtBox = new TextBox()
+            street = new TextBox()
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalContentAlignment = VerticalAlignment.Center,
@@ -174,7 +179,7 @@ namespace ContactsApp
             };
 
             Label houseNum = CreateLabel("House Number", "Right");
-            houseNumTxtBox = new TextBox()
+            this.houseNum = new TextBox()
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalContentAlignment = VerticalAlignment.Center,
@@ -184,7 +189,7 @@ namespace ContactsApp
             };
 
             Label zipCode = CreateLabel("Zip Code", "Right");
-            zipCodeTxtBox = new TextBox()
+            this.zipCode = new TextBox()
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalContentAlignment = VerticalAlignment.Center,
@@ -192,10 +197,10 @@ namespace ContactsApp
                 MinWidth = 100,
                 MaxWidth = 200
             };
-            zipCodeTxtBox.LostFocus += ZipCodeValidityCheck;
+            this.zipCode.LostFocus += ZipCodeValidityCheck;
 
             Label city = CreateLabel("City", "Right");
-            cityTxtBox = new TextBox()
+            this.city = new TextBox()
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalContentAlignment = VerticalAlignment.Center,
@@ -205,7 +210,7 @@ namespace ContactsApp
             };
 
             Label country = CreateLabel("Country", "Right");
-            countryTxtBox = new TextBox()
+            this.country = new TextBox()
             {
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalContentAlignment = VerticalAlignment.Center,
@@ -214,56 +219,57 @@ namespace ContactsApp
                 MaxWidth = 200
             };
 
+
             //Add controls to address group
             AddToCell(streetName, adressGrid, 0, 0);
-            AddToCell(streetTxtBox, adressGrid, 1, 0);
+            AddToCell(street, adressGrid, 1, 0);
             AddToCell(houseNum, adressGrid, 2, 0);
-            AddToCell(houseNumTxtBox, adressGrid, 3, 0);
+            AddToCell(this.houseNum, adressGrid, 3, 0);
             AddToCell(zipCode, adressGrid, 0, 1);
-            AddToCell(zipCodeTxtBox, adressGrid, 1, 1);
+            AddToCell(this.zipCode, adressGrid, 1, 1);
             AddToCell(city, adressGrid, 2, 1);
-            AddToCell(cityTxtBox, adressGrid, 3, 1);
+            AddToCell(this.city, adressGrid, 3, 1);
             AddToCell(country, adressGrid, 0, 2);
-            AddToCell(countryTxtBox, adressGrid, 1, 2);
+            AddToCell(this.country, adressGrid, 1, 2);
+
 
             //Add buttons to main grid bottom
-            addBtn = new Button()
+            add = new Button()
             {
                 Content = "Add Contact",
                 HorizontalAlignment = HorizontalAlignment.Left,
                 Margin = new Thickness(5),
                 Padding = new Thickness(5)
             };
-            AddToCell(addBtn, mainGrid, 0, 6);
-            addBtn.Width = 100;
-            Grid.SetColumnSpan(addBtn, 2);
-            addBtn.Click += AddBtn_Click;
+            AddToCell(add, mainGrid, 0, 6);
+            add.Width = 100;
+            Grid.SetColumnSpan(add, 2);
+            add.Click += AddBtn_Click;
 
-            cancelBtn = new Button()
+            cancel = new Button()
             {
                 Content = "Cancel",
                 HorizontalAlignment = HorizontalAlignment.Right,
                 Margin = new Thickness(5),
                 Padding = new Thickness(5)
             };
-            AddToCell(cancelBtn, mainGrid, 4, 6);
-            cancelBtn.Width = 100;
-            cancelBtn.Click += CancelBtn_Click;
-
+            AddToCell(cancel, mainGrid, 4, 6);
+            cancel.Width = 100;
+            cancel.Click += CancelBtn_Click;
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
-            mainWindow.addBtn.IsEnabled = true;
-            mainWindow.editBtn.IsEnabled = true;
+            mainWindow.add.IsEnabled = true;
+            mainWindow.edit.IsEnabled = true;
         }
 
         private void AddBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (zipCodeTxtBox.BorderBrush == Brushes.Red ||
-                birthDateTxtBox.BorderBrush == Brushes.Red ||
-                zipCodeTxtBox.Text == "" || birthDateTxtBox.Text == "")
+            if (zipCode.BorderBrush == Brushes.Red ||
+                birthDate.BorderBrush == Brushes.Red ||
+                zipCode.Text == "" || birthDate.Text == "")
             {
                 MessageBox.Show("Not all text boxes contain valid information.\n" +
                     "Please revise contact information and try again!");
@@ -275,33 +281,33 @@ namespace ContactsApp
                     ContactsInformation.RemoveContact(contactToEdit);
                 }
                 Contact contact = new Contact();
-                contact.firstName = firstNameTxtBox.Text;
-                contact.lastName = lastNameTxtBox.Text;
-                contact.birthDate = DateTime.Parse(birthDateTxtBox.Text);
-                contact.phoneNumber = phoneTxtBox.Text;
-                contact.address.street = streetTxtBox.Text;
-                contact.address.houseNumber = houseNumTxtBox.Text;
-                contact.address.zipCode = int.Parse(zipCodeTxtBox.Text);
-                contact.address.city = cityTxtBox.Text;
-                contact.address.country = countryTxtBox.Text;
+                contact.firstName = firstName.Text;
+                contact.lastName = lastName.Text;
+                contact.birthDate = DateTime.Parse(birthDate.Text);
+                contact.phoneNumber = phone.Text;
+                contact.address.street = street.Text;
+                contact.address.houseNumber = houseNum.Text;
+                contact.address.zipCode = int.Parse(zipCode.Text);
+                contact.address.city = city.Text;
+                contact.address.country = country.Text;
 
                 ContactsInformation.AddContact(contact);
-                mainWindow.UpdateContactList();
+                mainWindow.UpdateContactsList();
                 InitializeBoxes();
             }
         }
 
         private void LoadContact(Contact contact)
         {
-            firstNameTxtBox.Text = contact.firstName;
-            lastNameTxtBox.Text = contact.lastName;
-            birthDateTxtBox.Text = contact.birthDate.ToString("yyyy/MM/dd");
-            phoneTxtBox.Text = contact.phoneNumber;
-            streetTxtBox.Text = contact.address.street;
-            houseNumTxtBox.Text = contact.address.houseNumber;
-            zipCodeTxtBox.Text = contact.address.zipCode.ToString();
-            cityTxtBox.Text = contact.address.city;
-            countryTxtBox.Text = contact.address.country;
+            firstName.Text = contact.firstName;
+            lastName.Text = contact.lastName;
+            birthDate.Text = contact.birthDate.ToString("yyyy/MM/dd");
+            phone.Text = contact.phoneNumber;
+            street.Text = contact.address.street;
+            houseNum.Text = contact.address.houseNumber;
+            zipCode.Text = contact.address.zipCode.ToString();
+            city.Text = contact.address.city;
+            country.Text = contact.address.country;
         }
 
         private void InitializeBoxes()
@@ -318,25 +324,25 @@ namespace ContactsApp
 
         private void ZipCodeValidityCheck(object sender, RoutedEventArgs e)
         {
-            if (!int.TryParse(zipCodeTxtBox.Text, out int result))
+            if (!int.TryParse(zipCode.Text, out int result))
             {
-                zipCodeTxtBox.BorderBrush = Brushes.Red;
+                zipCode.BorderBrush = Brushes.Red;
             }
             else
             {
-                zipCodeTxtBox.BorderBrush = Brushes.Gray;
+                zipCode.BorderBrush = Brushes.Gray;
             }
         }
 
         private void BirthDateValidityCheck(object sender, RoutedEventArgs e)
         {
-            if (!DateTime.TryParse(birthDateTxtBox.Text, out DateTime result2))
+            if (!DateTime.TryParse(birthDate.Text, out DateTime result2))
             {
-                birthDateTxtBox.BorderBrush = Brushes.Red;
+                birthDate.BorderBrush = Brushes.Red;
             }
             else
             {
-                birthDateTxtBox.BorderBrush = Brushes.Gray;
+                birthDate.BorderBrush = Brushes.Gray;
             }
         }
 
