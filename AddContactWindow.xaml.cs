@@ -41,7 +41,7 @@ namespace ContactsApp
         Button add;
         Button cancel;
 
-        public AddContactWindow(MainWindow mainWindow, Contact contact = null)
+        public AddContactWindow(MainWindow mainWindow, Person contact = null)
         {
             SizeToContent = SizeToContent.WidthAndHeight;
             this.mainWindow = mainWindow;
@@ -280,16 +280,16 @@ namespace ContactsApp
                 {
                     ContactsInformation.RemoveContact(contactToEdit);
                 }
-                Contact contact = new Contact();
-                contact.firstName = firstName.Text;
-                contact.lastName = lastName.Text;
-                contact.birthDate = DateTime.Parse(birthDate.Text);
-                contact.phoneNumber = phone.Text;
-                contact.address.street = street.Text;
-                contact.address.houseNumber = houseNum.Text;
-                contact.address.zipCode = int.Parse(zipCode.Text);
-                contact.address.city = city.Text;
-                contact.address.country = country.Text;
+                Person contact = new Person();
+                contact.FirstName = firstName.Text;
+                contact.LastName = lastName.Text;
+                contact.BirthDate = DateTime.Parse(birthDate.Text);
+                contact.PhoneNumber = phone.Text;
+                contact.Address.street = street.Text;
+                contact.Address.houseNumber = houseNum.Text;
+                contact.Address.zipCode = int.Parse(zipCode.Text);
+                contact.Address.city = city.Text;
+                contact.Address.country = country.Text;
 
                 ContactsInformation.AddContact(contact);
                 mainWindow.UpdateContactsList();
@@ -297,17 +297,17 @@ namespace ContactsApp
             }
         }
 
-        private void LoadContact(Contact contact)
+        private void LoadContact(Person contact)
         {
-            firstName.Text = contact.firstName;
-            lastName.Text = contact.lastName;
-            birthDate.Text = contact.birthDate.ToString("yyyy/MM/dd");
-            phone.Text = contact.phoneNumber;
-            street.Text = contact.address.street;
-            houseNum.Text = contact.address.houseNumber;
-            zipCode.Text = contact.address.zipCode.ToString();
-            city.Text = contact.address.city;
-            country.Text = contact.address.country;
+            firstName.Text = contact.FirstName;
+            lastName.Text = contact.LastName;
+            birthDate.Text = contact.BirthDate.ToString("yyyy/MM/dd");
+            phone.Text = contact.PhoneNumber;
+            street.Text = contact.Address.street;
+            houseNum.Text = contact.Address.houseNumber;
+            zipCode.Text = contact.Address.zipCode.ToString();
+            city.Text = contact.Address.city;
+            country.Text = contact.Address.country;
         }
 
         private void InitializeBoxes()
