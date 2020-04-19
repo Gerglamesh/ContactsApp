@@ -71,6 +71,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ContactsIO.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="ContactsInformation.cs" />
     <Compile Include="MainWindow.xaml.cs">

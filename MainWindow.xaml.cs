@@ -39,7 +39,7 @@ namespace ContactsApp
             InitializeComponent();
             Start();
 
-            ContactsInformation.Load(); //Load contacts from file
+            ContactsIO.Load(ContactsInformation.GetContacts()); //Load contacts from file
             UpdateContactsList();
         }
 
@@ -179,7 +179,7 @@ namespace ContactsApp
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
-            ContactsInformation.Save();
+            ContactsIO.Save(ContactsInformation.GetContacts());
             Environment.Exit(0);
         }
 
